@@ -7,23 +7,20 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="bodyContainer">
 
         <div class="mainCharacterView left" >
-                <div class="nameBox">USS Schwarzenegger</div>
+                <div class="nameBox" id="playerName">USS Schwarzenegger</div>
                 <div class="playerImage"></div>
                 <div class="playerStats">
-
-                Hull : 15 <br>
-                FirePower : 5 <br>
-                Accuracy : .7 <br>
-
-z
-
+                    <br>
+                    <p>Hull : <span id="playerHull"></span></p>
+                    <p>FirePower : <span id="playerFirePower"></span></p>
+                    <p>Accuracy : <span id="playerAccuracy"></span></p>
                 </div>
 
         </div>
@@ -34,15 +31,12 @@ z
             <div class="nameBox">Enemy</div>
             <div class="enemyImage"></div>
                 <div class="enemyStats">
-                    Hull : 6 <br>
-                    FirePower : 3 <br>
-                    Accuracy : .6 <br>
-    
-    
+                    <br>
+                    <p>Hull : <span id="enemyHull"></span></p>
+                    <p>FirePower : <span id="enemyFirePower"></span></p>
+                    <p>Accuracy : <span id="enemyAccuracy"></span></p>
                 </div>
-            
         </div>
-
 
     <script src="app.js"></script>
 </body>
