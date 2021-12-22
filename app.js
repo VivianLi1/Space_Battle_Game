@@ -1,72 +1,6 @@
 let player;
 let enemyArray;
-
-window.onload = () => {
-    init(6);
-}
-
-function init(enemyCount){
-    player = generateUser(20, 5, 0.7);
-    enemyArray = generateEnemyArray(enemyCount);
-
-    chooseName();
-    displayShip("player", player);
-    displayShip("enemy", enemyArray[0]);
-    document.getElementById('resultContainer').innerText = '';
-    document.getElementById('resultContainer2').innerText = '';
-
-    battleCount = 0;
-    document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
-
-    document.getElementById('attackButton').addEventListener('click', function(){
-        let attackbutton = document.getElementById('attackButton');
-        let result = document.getElementById('resultContainer');
-        let result2 = document.getElementById('resultContainer2');
-        result.innerHTML = ""
-        result2.innerHTML = ""
-
-        attackbutton.classList.add('pressed');
-        result.classList.add('typewriter');
-        result2.classList.add('typewriter');
-
-        setTimeout(function(){
-            let winBattle = battle(player, enemyArray[battleCount]);
-            if(winBattle){
-                battleCount++;
-                console.log(battleCount)
-
-                if(checkWinGame(battleCount)){
-                    alert("You vanquished all the aliens! Click OK to play again!");
-                    init(6);
-                }
-
-                document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
-                displayShip("enemy", enemyArray[battleCount]);
-            }
-
-            attackbutton.classList.remove('pressed');
-
-        }, 500);
-
-        setTimeout(function(){
-            result.classList.remove('typewriter');
-            result2.classList.remove('typewriter');
-
-        }, 2000);
-    });
-
-    document.getElementById('retreatButton').addEventListener('click', function(){
-        let retreatButton = document.getElementById('retreatButton');
-        retreatButton.classList.add('pressed');
-        setTimeout(function(){
-            alert("You ran away! Game Over :( Click OK to play again!");
-            retreatButton.classList.remove('pressed');
-            init(6);
-        }, 500);
-        
-    });
-
-}
+let battleCount;
 
 class Ship{
     constructor(hull, firepower, accuracy){
@@ -92,6 +26,79 @@ class Ship{
     isDead(){
         return this.hull <= 0;
     }
+}
+
+window.onload = () => {
+    init(6);
+}
+
+function init(enemyCount){
+    player = generateUser(20, 5, 0.7);
+    enemyArray = generateEnemyArray(enemyCount);
+
+    chooseName();
+    displayShip("player", player);
+    displayShip("enemy", enemyArray[0]);
+    document.getElementById('resultContainer').innerText = '';
+    document.getElementById('resultContainer2').innerText = '';
+
+    battleCount = 0;
+    document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
+
+    document.getElementById('attackButton').addEventListener('click', attackButtonListenerFunc);
+    document.getElementById('retreatButton').addEventListener('click', retreatButtonListenerFunc);
+
+}
+
+function attackButtonListenerFunc(){
+    let attackbutton = document.getElementById('attackButton');
+    let result = document.getElementById('resultContainer');
+    let result2 = document.getElementById('resultContainer2');
+    result.innerHTML = ""
+    result2.innerHTML = ""
+
+    attackbutton.classList.add('pressed');
+    result.classList.add('typewriter');
+    result2.classList.add('typewriter');
+
+    setTimeout(function(){
+        let winBattle = battle(player, enemyArray[battleCount]);
+        if(winBattle){
+            battleCount++;
+            console.log(battleCount)
+
+            if(checkWinGame(battleCount)){
+                document.getElementById('attackButton').removeEventListener('click', attackButtonListenerFunc);
+                document.getElementById('retreatButton').removeEventListener('click', retreatButtonListenerFunc);
+                alert("You vanquished all the aliens! Click OK to play again!");
+                init(6);
+            }
+
+            document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
+            displayShip("enemy", enemyArray[battleCount]);
+        }
+
+        attackbutton.classList.remove('pressed');
+
+    }, 500);
+
+    setTimeout(function(){
+        result.classList.remove('typewriter');
+        result2.classList.remove('typewriter');
+
+    }, 2000);
+}
+
+function retreatButtonListenerFunc(){
+    let retreatButton = document.getElementById('retreatButton');
+    retreatButton.classList.add('pressed');
+    setTimeout(function(){
+        retreatButton.classList.remove('pressed');
+        document.getElementById('attackButton').removeEventListener('click', attackButtonListenerFunc);
+        document.getElementById('retreatButton').removeEventListener('click', retreatButtonListenerFunc);
+        alert("You ran away! Game Over :( Click OK to play again!");
+        init(6);
+    }, 500);
 }
 
 function chooseName(){
@@ -159,6 +166,8 @@ function battle(player, enemy){
         result2.classList.remove('redText');
 
         if(player.isDead()){
+            document.getElementById('attackButton').removeEventListener('click', attackButtonListenerFunc);
+            document.getElementById('retreatButton').removeEventListener('click', retreatButtonListenerFunc);
             window.alert("You Died! Game Over. Click OK to play again.");
             init(6);
         }
@@ -166,6 +175,6 @@ function battle(player, enemy){
 }
 
 function checkWinGame(battleCount){
-    return battleCount > enemyArray.length-1;
+    return battleCount > enemyArray.length-2;
 }
 
