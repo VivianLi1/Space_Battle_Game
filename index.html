@@ -9,33 +9,44 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/arcade" rel="stylesheet">
+
 </head>
 <body>
     <div class="bodyContainer">
 
         <div class="mainCharacterView left" >
-                <div class="nameBox" id="playerName">USS Schwarzenegger</div>
-                <div class="playerImage"></div>
-                <div class="playerStats">
-                    <br>
-                    <p>Hull : <span id="playerHull"></span></p>
-                    <p>FirePower : <span id="playerFirePower"></span></p>
-                    <p>Accuracy : <span id="playerAccuracy"></span></p>
-                </div>
-
+            <div class="nameBox" id="playerName">USS Schwarzenegger</div>
+            <div class="playerImage"></div>
+            <div class="playerStats">
+                <p>>Hull      : <span id="playerHull"></span></p>
+                <p>>FirePower : <span id="playerFirePower"></span></p>
+                <p>>Accuracy  : <span id="playerAccuracy"></span></p>
+            </div>
         </div>
 
+        <div id="actionContainer">
+            <div class="resultText" id="resultContainer"></div>
+            <div class="emptyLine"></div>
+            <div class="resultText" id="resultContainer2"></div>
+           
+            <div id="consoleContainer">
+                <button id="attackButton"><span>Attack</span></button>
+                <button id="retreatButton"><span>Retreat</span></button>
+            </div>
+        </div>
 
         <div class="mainCharacterView right">
            
-            <div class="nameBox">Enemy</div>
+            <div class="nameBox" id="enemyName"></div>
             <div class="enemyImage"></div>
-                <div class="enemyStats">
-                    <br>
-                    <p>Hull : <span id="enemyHull"></span></p>
-                    <p>FirePower : <span id="enemyFirePower"></span></p>
-                    <p>Accuracy : <span id="enemyAccuracy"></span></p>
-                </div>
+            <div class="enemyStats">
+                <p>>Hull : <span id="enemyHull"></span></p>
+                <p>>FirePower : <span id="enemyFirePower"></span></p>
+                <p>>Accuracy  : <span id="enemyAccuracy"></span></p>
+            </div>
         </div>
 
     <script src="app.js"></script>
