@@ -71,7 +71,7 @@ function init(){
 
     // Generate array of enemies based on user input (default 6)
     let enemyCount = document.getElementById('enemyCountInput').value;
-    if(enemyCount == ""){enemyCount = 6;}
+    if((typeof enemyCount) != "number"){enemyCount = 6;}
     enemyArray = generateEnemyArray(enemyCount);
 
     // Initial display of ships and containers on DOM
