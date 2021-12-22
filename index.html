@@ -11,6 +11,47 @@
 <body>
     <div class="bodyContainer">
 
+        <div id="startModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>EPIC SPACE BATTLE SIMULATOR 3000</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Enter ship name (leave blank for default)</p>
+                    <div class="textArea">
+                        <p class="blinkingCursor">></p>
+                        <input id="playerNameInput" type='text'>
+                    </div>
+                    <br>
+                    <p>Enter number of enemies (leave blank for default)</p>
+                    <div class="textArea">
+                        <p class="blinkingCursor">></p>
+                        <input id="enemyCountInput" type='text'>
+                    </div>
+
+                    <br>
+                    <button class="modalButton" id="startButton">Start</button>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+
+        <div id="endModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 id="endText"></h1>
+                </div>
+                <div class="modal-body">
+                    <h3 id="endText2"></h3>
+                    <br>
+                    <button class="modalButton" id="endButton">Restart</button>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+
         <div class="mainCharacterView left" >
             <div class="nameBox" id="playerName">USS Schwarzenegger</div>
             <div class="playerImage"></div>
@@ -27,8 +68,8 @@
             <div class="resultText" id="resultContainer2"></div>
            
             <div id="consoleContainer">
-                <button id="attackButton"><span>Attack</span></button>
-                <button id="retreatButton"><span>Retreat</span></button>
+                <button class="controlButton" id="attackButton"><span>Attack</span></button>
+                <button class="controlButton" id="retreatButton"><span>Retreat</span></button>
             </div>
         </div>
 
@@ -42,7 +83,7 @@
                 <p>>Accuracy  : <span id="enemyAccuracy"></span></p>
             </div>
         </div>
-
+    </div>
     <script src="app.js"></script>
 </body>
 </html>

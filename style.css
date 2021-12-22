@@ -72,44 +72,6 @@
     padding: 20px;
 }
 
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 #actionContainer{
     position: relative;
     width: 20%;
@@ -125,7 +87,7 @@
     padding: 10px;
 }
 
-button { 
+.controlButton { 
     border-radius: 50%; 
     width: 150px;
     height: 150px;
@@ -197,4 +159,100 @@ button span { position: relative; }
 
 .redText{
     color: rgb(248, 48, 48);
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.959); /* Black w/ opacity */
+}
+  
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: rgb(22, 31, 22);
+    margin: auto;
+    padding: 50px;
+    width: 40%;
+    border: 8px solid white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.829),0 6px 20px 0 rgba(0, 0, 0, 0.966);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+.modal-header {
+    color: rgb(91, 223, 91);
+}
+
+.modal-body {
+    margin-top: 30px;
+    font-size: medium;
+    font-family: 'Arcade Normal', sans-serif;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.textArea{
+    display: flex;
+}
+
+input{
+    border: 0px none;
+    background-color: rgb(22, 31, 22);
+    font-family: 'Arcade Normal', sans-serif;
+    color: white;
+    caret-color: rgb(91, 223, 91);
+}
+
+input:focus{
+    outline: none;
+}
+
+.blinkingCursor{
+    animation: blink-animation .75s step-end infinite;
+}
+
+@keyframes blink-animation {
+    from, to { color: transparent }
+    50% { color: rgb(91, 223, 91) }
+}
+
+.modalButton{
+    float: right;
+    font-family: 'Arcade Normal', sans-serif;
+    font-size: large;
+    background-color: rgb(88, 0, 0);
+    color: white;
+    border:none;
+    padding: 10px;
+}
+
+.modalButton:hover{
+    background-color: rgb(155, 3, 3);
 }

@@ -29,25 +29,65 @@ class Ship{
 }
 
 window.onload = () => {
-    init(6);
+    toggleStartModal();
 }
 
-function init(enemyCount){
+/* Modal Functions */
+function toggleStartModal(){
+    let modal = document.getElementById("startModal");
+    let startButton = document.getElementById("startButton");
+
+    modal.style.display = 'block';
+
+    startButton.addEventListener('click', function(){
+        modal.style.display = 'none';
+        init();
+    });
+}
+
+function toggleEndModal(msg, msg2){
+    let modal = document.getElementById("endModal");
+    let endButton = document.getElementById("endButton");
+    let endText = document.getElementById("endText");
+    let endText2 = document.getElementById("endText2");
+
+    endText.innerText = msg;
+    endText2.innerText = msg2;
+    modal.style.display = 'block';
+
+    endButton.addEventListener('click', function(){
+        modal.style.display = 'none';
+        toggleStartModal();
+    });
+}
+
+function init(){
+
     player = generateUser(20, 5, 0.7);
+
+    // Displays Player name based on user input
+    const playerNameInput = document.getElementById('playerNameInput').value;
+    chooseName(playerNameInput);
+
+    // Generate array of enemies based on user input (default 6)
+    let enemyCount = document.getElementById('enemyCountInput').value;
+    if(enemyCount == ""){enemyCount = 6;}
     enemyArray = generateEnemyArray(enemyCount);
 
-    chooseName();
+    // Initial display of ships and containers on DOM
     displayShip("player", player);
     displayShip("enemy", enemyArray[0]);
     document.getElementById('resultContainer').innerText = '';
     document.getElementById('resultContainer2').innerText = '';
 
+    // Keeps track of what battle is executing
     battleCount = 0;
+    // Displays curr enemy name
     document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
 
+    // Add event listeners for attack and retreat buttons
     document.getElementById('attackButton').addEventListener('click', attackButtonListenerFunc);
     document.getElementById('retreatButton').addEventListener('click', retreatButtonListenerFunc);
-
 }
 
 function attackButtonListenerFunc(){
@@ -70,12 +110,13 @@ function attackButtonListenerFunc(){
             if(checkWinGame(battleCount)){
                 document.getElementById('attackButton').removeEventListener('click', attackButtonListenerFunc);
                 document.getElementById('retreatButton').removeEventListener('click', retreatButtonListenerFunc);
-                alert("You vanquished all the aliens! Click OK to play again!");
-                init(6);
+                setTimeout(function(){
+                    toggleEndModal("You Win!", "You vanquished all the aliens!");
+                }, 2100);
+            }else{
+                document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
+                displayShip("enemy", enemyArray[battleCount]);
             }
-
-            document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
-            displayShip("enemy", enemyArray[battleCount]);
         }
 
         attackbutton.classList.remove('pressed');
@@ -96,13 +137,11 @@ function retreatButtonListenerFunc(){
         retreatButton.classList.remove('pressed');
         document.getElementById('attackButton').removeEventListener('click', attackButtonListenerFunc);
         document.getElementById('retreatButton').removeEventListener('click', retreatButtonListenerFunc);
-        alert("You ran away! Game Over :( Click OK to play again!");
-        init(6);
+        toggleEndModal("Game Over!", "You couldn't handle the heat and escaped!");
     }, 500);
 }
 
-function chooseName(){
-    const playerName = prompt("Choose your ship name (or leave blank for default name)");
+function chooseName(playerName){
     if(playerName != "" && playerName != null) 
         document.getElementById('playerName').innerHTML = playerName;
 }
@@ -168,13 +207,13 @@ function battle(player, enemy){
         if(player.isDead()){
             document.getElementById('attackButton').removeEventListener('click', attackButtonListenerFunc);
             document.getElementById('retreatButton').removeEventListener('click', retreatButtonListenerFunc);
-            window.alert("You Died! Game Over. Click OK to play again.");
-            init(6);
+            setTimeout(function(){
+                toggleEndModal("Game Over!", "You Died :(");
+            }, 2100);
         }
     } 
 }
 
 function checkWinGame(battleCount){
-    return battleCount > enemyArray.length-2;
+    return battleCount > enemyArray.length-1;
 }
-
