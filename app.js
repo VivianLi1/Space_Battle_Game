@@ -68,6 +68,7 @@ function init(){
 
     // Displays Player name based on user input
     const playerNameInput = document.getElementById('playerNameInput').value;
+    playerNameInput.innerText = "USS Schwarzenegger";
     chooseName(playerNameInput);
 
     // Generate array of enemies based on user input (default 6)
