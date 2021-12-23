@@ -1,6 +1,7 @@
 let player;
 let enemyArray;
 let battleCount;
+let currEnemyColorIndex;
 
 class Ship{
     constructor(hull, firepower, accuracy){
@@ -70,8 +71,8 @@ function init(){
     chooseName(playerNameInput);
 
     // Generate array of enemies based on user input (default 6)
-    let enemyCount = Number(document.getElementById('enemyCountInput').value);
-    if((typeof enemyCount) != "number"){enemyCount = 6;}
+    let enemyCount = document.getElementById('enemyCountInput').value;
+    if(enemyCount=='' || (isNaN(enemyCount))){enemyCount = 6;}
     enemyArray = generateEnemyArray(enemyCount);
 
     // Initial display of ships and containers on DOM
@@ -84,6 +85,10 @@ function init(){
     battleCount = 0;
     // Displays curr enemy name
     document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
+
+    //Reset enemy image
+    document.getElementById('enemyImage').style.backgroundImage = `url("./images/enemyShip0.gif")`;
+    currEnemyColorIndex = 0;
 
     // Add event listeners for attack and retreat buttons
     document.getElementById('attackButton').addEventListener('click', attackButtonListenerFunc);
@@ -105,7 +110,6 @@ function attackButtonListenerFunc(){
         let winBattle = battle(player, enemyArray[battleCount]);
         if(winBattle){
             battleCount++;
-            console.log(battleCount)
 
             if(checkWinGame(battleCount)){
                 document.getElementById('attackButton').removeEventListener('click', attackButtonListenerFunc);
@@ -114,8 +118,11 @@ function attackButtonListenerFunc(){
                     toggleEndModal("You Win!", "You vanquished all the aliens!");
                 }, 2100);
             }else{
-                document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
-                displayShip("enemy", enemyArray[battleCount]);
+                setTimeout(function(){
+                    document.getElementById('enemyName').innerText = `Enemy ${battleCount+1}`;
+                    displayShip("enemy", enemyArray[battleCount]);
+                    currEnemyColorIndex = displayRandomEnemyImage(currEnemyColorIndex);
+                }, 800)
             }
         }
 
@@ -176,6 +183,18 @@ function displayShip(shipId, ship){
     document.getElementById(`${shipId}Accuracy`).innerText =  ship.accuracy;
 }
 
+function displayRandomEnemyImage(currColorIndex){
+    let enemy = document.getElementById('enemyImage');
+
+    let newColorIndex = Math.floor(Math.random() * 3);
+    while(newColorIndex == currColorIndex){
+        newColorIndex = Math.floor(Math.random() * 3);
+    }
+
+    enemy.style.backgroundImage = `url("./images/enemyShip${newColorIndex}.gif")`;
+    return newColorIndex;
+}
+
 
 function battle(player, enemy){
 
@@ -188,6 +207,10 @@ function battle(player, enemy){
         displayShip("enemy", enemy);
 
         result.innerHTML = "Player attacks: " + msg;
+        if(msg == "Hit!"){
+            let explosion = document.getElementById("enemyExplosion");
+            toggleExplosion(explosion);
+        }
 
         if(enemy.isDead()){
             result2.innerHTML = "You Killed the Enemy!";
@@ -204,6 +227,11 @@ function battle(player, enemy){
         result2.innerHTML = "Enemy attacks: " + msg;
         result2.classList.remove('redText');
 
+        if(msg == "Hit!"){
+            let explosion = document.getElementById("playerExplosion");
+            toggleExplosion(explosion);
+        }
+
         if(player.isDead()){
             document.getElementById('attackButton').removeEventListener('click', attackButtonListenerFunc);
             document.getElementById('retreatButton').removeEventListener('click', retreatButtonListenerFunc);
@@ -216,4 +244,11 @@ function battle(player, enemy){
 
 function checkWinGame(battleCount){
     return battleCount > enemyArray.length-1;
+}
+
+function toggleExplosion(explosion){
+    explosion.style.display = "block";
+    setTimeout(function(){
+        explosion.style.display = "none";
+    }, 1000);
 }

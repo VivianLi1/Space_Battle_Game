@@ -33,13 +33,26 @@
     font-size: 2em;
 }
 
-.playerImage{
+#playerImage{
     width: 30vw;
     height: 40vh;
     background-image: url("./images/playerShip.gif");
     background-size: 25vw 35vh;
     background-position: center;
     background-repeat: no-repeat;
+    position: relative;
+}
+
+.explosionImage{
+    width: 30vw;
+    height: 40vh;
+    background-image: url("./images/4xjg.gif");
+    background-size: 15vw 30vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 25%;
+    display: none;
 }
 
 .playerStats{
@@ -52,10 +65,10 @@
     padding: 20px;
 }
 
-.enemyImage{
+#enemyImage{
     width: 30vw;
     height: 35vh;
-    background-image: url("./images/enemyShip.gif");
+    background-image: url("./images/enemyShip0.gif");
     background-position: center;
     background-repeat: no-repeat;
 }
