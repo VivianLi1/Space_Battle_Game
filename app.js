@@ -186,9 +186,9 @@ function displayShip(shipId, ship){
 function displayRandomEnemyImage(currColorIndex){
     let enemy = document.getElementById('enemyImage');
 
-    let newColorIndex = Math.floor(Math.random() * 3);
+    let newColorIndex = Math.floor(Math.random() * 4);
     while(newColorIndex == currColorIndex){
-        newColorIndex = Math.floor(Math.random() * 3);
+        newColorIndex = Math.floor(Math.random() * 4);
     }
 
     enemy.style.backgroundImage = `url("./images/enemyShip${newColorIndex}.gif")`;
