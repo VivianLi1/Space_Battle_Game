@@ -70,7 +70,7 @@ function init(){
     chooseName(playerNameInput);
 
     // Generate array of enemies based on user input (default 6)
-    let enemyCount = document.getElementById('enemyCountInput').value;
+    let enemyCount = Number(document.getElementById('enemyCountInput').value);
     if((typeof enemyCount) != "number"){enemyCount = 6;}
     enemyArray = generateEnemyArray(enemyCount);
 
